@@ -1,9 +1,9 @@
 <div class="header">
-	<ul class="pagination justify-content-center">
+	<ul class="pagination justify-content-center tanpa-garis">
 		{#if terkumpul.length <= 7}
 			{#each Array(7) as _, n}
 				<li class={terkumpul.length >= n + 1 ? 'active page-item' : 'page-item'}>
-					<div class="page-link">{n + 1}</div>
+					<div class="page-link">&nbsp;</div>
 				</li>
 			{/each}
 			{#if terkumpul.length == 7}
@@ -101,5 +101,8 @@
 	.click.active {
 		background: rgb(255, 87, 34);
 		color: white;
+	}
+	.tanpa-garis .page-link {
+		border: none;
 	}
 </style>
