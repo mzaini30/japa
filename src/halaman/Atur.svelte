@@ -28,11 +28,18 @@
 </div>
 <script type="text/javascript">
 	import {data} from '../data.js'
-	import {onMount} from 'svelte'
+	import {onMount, afterUpdate} from 'svelte'
 	let pilihan = []
 	onMount(() => {
 		if (localStorage.japa) {
 			pilihan = JSON.parse(localStorage.japa)
 		}
+	})
+	afterUpdate(() => {
+		window.scrollTo({
+			top: 0,
+			left: 0,
+			behavior: 'smooth'
+		})
 	})
 </script>
