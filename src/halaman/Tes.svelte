@@ -23,9 +23,11 @@
 					<tr class={terkumpul.includes(n * 11 + o) ? 'click active' : 'click'} on:click={() => tambahkan(n * 11 + o)}>
 						<td>{n * 11 + o + 1}</td>
 						<td>
+			 			 <ul>
 							{#each Array(3) as _, p}
-								{@html data[n * 11 + o][p]}<br>
+								<li>{@html data[n * 11 + o][p]}</li>
 							{/each}
+						 </ul>
 						</td>
 					</tr>
 				{/each}
