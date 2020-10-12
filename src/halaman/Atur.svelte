@@ -47,11 +47,19 @@
 		{/if}
 	</div>
 {/if}
+{#if selesai}
+	<div class="btn btn-info melayang-kanan" on:click={kirim}>Kirim...</div>
+{/if}
 <style type="text/css">
 	.melayang {
 		position: fixed;
 		left: 20px;
 		bottom: 0;
+	}
+	.melayang-kanan {
+		position: fixed;
+		right: 20px;
+		bottom: 20px;
 	}
 	ul {
 		padding-left: 10px;
@@ -64,9 +72,12 @@
 	import {data} from '../data.js'
 	import {onMount, afterUpdate} from 'svelte'
 	let error = false
+	let selesai = false
 	let diAtasTujuh = false
+	let result = ''
 	let pilihan = []
 	let isian = []
+	let wa = '62895704160388'
 	let biodata = {
 		nomorTes: '',
 		nama: '',
@@ -86,6 +97,25 @@
 			behavior: 'smooth'
 		})
 	})
+	const kirim = () => {
+		let hasil = ''
+		hasil = `Nomor tes: *${biodata.nomorTes}*
+Nama: *${biodata.nama}*
+Kelas / sekolah: *${biodata.kelasSekolah}*
+JK: *${biodata.jk}*
+
+`
+		for (let n in isian){
+			hasil += `Nomor: *${pilihan[n] + 1}*
+Peringkat: *${isian[n]}*
+_Pernyataan:_
+${data[pilihan[n]].map(x => `- ${x}`).join('\n').replace(/<strong> /g, '*').replace(/ <\/strong>/g, '*').replace(/<strong>/g, '*').replace(/<\/strong>/g, '*')}
+
+`
+		}
+		result = encodeURIComponent(hasil)
+		location.href = `https://wa.me/${wa}?text=${result}`
+	}
 	$: if (isian) {
 		if (isian.length == 7) {
 			if ((new Set(isian)).size == 7) {
@@ -106,6 +136,15 @@
 			diAtasTujuh = true
 		} else {
 			diAtasTujuh = false
+		}
+		if (isian.length == 7) {
+			if (error == false && diAtasTujuh == false) {
+				selesai = true
+			} else {
+				selesai = false
+			}
+		} else {
+			selesai = false
 		}
 	}
 </script>
