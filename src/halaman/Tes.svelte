@@ -46,7 +46,6 @@
 	let bagian = 1
 	export let params
 	import {data} from '../data.js'
-	import {onMount} from 'svelte'
 	let terkumpul = []
 	$: if (params) {
 		window.scrollTo({
@@ -55,11 +54,6 @@
 			behavior: 'smooth'
 		})
 	}
-	onMount(() => {
-		if (localStorage.japa) {
-			localStorage.removeItem('japa')
-		}
-	})
 	const simpan = () => localStorage.setItem('japa', JSON.stringify(terkumpul))
 	const tambahkan = n => {
 		if (terkumpul.includes(n)) {
