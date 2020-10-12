@@ -29,7 +29,7 @@
 							</ul>
 						</td>
 						<td>
-							<input type="tel" class="form-control" placeholder="1-7" bind:value={isian[n]}>
+							<input type="number" class="form-control" placeholder="1-7" bind:value={isian[n]} min="1" max="7">
 						</td>
 					</tr>
 				{/each}
@@ -37,19 +37,28 @@
 		</table>
 	</div>
 </div>
-<div class="alert alert-warning melayang">Peringkat tidak boleh ada yang sama</div>
+{#if error}
+	<div class="alert alert-danger melayang">Peringkat tidak boleh ada yang sama</div>
+{/if}
 <style type="text/css">
 	.melayang {
 		position: fixed;
 		left: 20px;
-		bottom: 20px;
+		bottom: 0;
+	}
+	ul {
+		padding-left: 10px;
+	}
+	table {
+		margin-bottom: 80px;
 	}
 </style>
 <script type="text/javascript">
 	import {data} from '../data.js'
 	import {onMount, afterUpdate} from 'svelte'
+	let error = false
 	let pilihan = []
-	let isian = [1, 1, 3, 4, 1, 6, 7]
+	let isian = []
 	let biodata = {
 		nomorTes: '',
 		nama: '',
@@ -63,12 +72,21 @@
 		if (localStorage.dataJapa) {
 			biodata = JSON.parse(localStorage.dataJapa)
 		}
-	})
-	afterUpdate(() => {
 		window.scrollTo({
 			top: 0,
 			left: 0,
 			behavior: 'smooth'
 		})
 	})
+	$: if (isian) {
+		if (isian.length == 7) {
+			if ((new Set(isian)).size == 7) {
+				error = false
+			} else {
+				error = true
+			}
+		} else {
+			error = false
+		}
+	}
 </script>
