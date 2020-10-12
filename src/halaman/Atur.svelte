@@ -29,7 +29,7 @@
 							</ul>
 						</td>
 						<td>
-							<input type="number" class="form-control" placeholder="1-7" bind:value={isian[n]} min="1" max="7">
+							<input type="tel" class="form-control" bind:value={isian[n]}>
 						</td>
 					</tr>
 				{/each}
@@ -37,8 +37,15 @@
 		</table>
 	</div>
 </div>
-{#if error}
-	<div class="alert alert-danger melayang">Peringkat tidak boleh ada yang sama</div>
+{#if error || diAtasTujuh}
+	<div class="alert alert-danger melayang">
+		{#if error}
+			Peringkat tidak boleh ada yang sama
+		{/if}
+		{#if diAtasTujuh}
+			Peringkat maksimal 7
+		{/if}
+	</div>
 {/if}
 <style type="text/css">
 	.melayang {
@@ -57,6 +64,7 @@
 	import {data} from '../data.js'
 	import {onMount, afterUpdate} from 'svelte'
 	let error = false
+	let diAtasTujuh = false
 	let pilihan = []
 	let isian = []
 	let biodata = {
@@ -87,6 +95,17 @@
 			}
 		} else {
 			error = false
+		}
+		let hitung = 0
+		for (let x of isian){
+			if (x > 7) {
+				hitung++
+			}
+		}
+		if (hitung > 0) {
+			diAtasTujuh = true
+		} else {
+			diAtasTujuh = false
 		}
 	}
 </script>
