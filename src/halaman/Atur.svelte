@@ -1,12 +1,13 @@
 <div class="container">
 	<br>
 	<p>Beri peringkat pada pernyataan yang sudah kamu pilih tadi</p>
+	<div class="table-responsive">
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th>Nomor</th>
+				<th>No</th>
 				<th>Pernyataan</th>
-				<th>Peringkat</th>
+				<th>Rank</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -14,17 +15,20 @@
 				<tr>
 					<td>{x + 1}</td>
 					<td>
+					<ul>
 						{#each data[x] as t}
-							{@html t}<br>
+						<li>	{@html t}</li>
 						{/each}
+					</ul>
 					</td>
 					<td>
-						<input type="tel" class="form-control" placeholder="1 - 7">
+						<input type="tel" class="form-control" placeholder="1-7">
 					</td>
 				</tr>
 			{/each}
 		</tbody>
 	</table>
+	</div>
 </div>
 <script type="text/javascript">
 	import {data} from '../data.js'
