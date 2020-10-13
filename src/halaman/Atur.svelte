@@ -98,23 +98,7 @@
 		})
 	})
 	const kirim = () => {
-		let hasil = ''
-		hasil = `Nomor tes: *${biodata.nomorTes}*
-Nama: *${biodata.nama}*
-Kelas / sekolah: *${biodata.kelasSekolah}*
-JK: *${biodata.jk}*
-
-`
-		for (let n in isian){
-			hasil += `Nomor: *${pilihan[n] + 1}*
-Peringkat: *${isian[n]}*
-_Pernyataan:_
-${data[pilihan[n]].map(x => `- ${x}`).join('\n').replace(/<strong> /g, '*').replace(/ <\/strong>/g, '*').replace(/<strong>/g, '*').replace(/<\/strong>/g, '*')}
-
-`
-		}
-		result = encodeURIComponent(hasil)
-		location.href = `https://wa.me/${wa}?text=${result}`
+		location.href = `https://docs.google.com/forms/d/e/1FAIpQLSfCnA8dvyQ-hgv9H0JDuXhf2g_QYtqT6zkPq_EGvTM7ReAsrg/viewform?usp=pp_url&entry.2062712989=${biodata.nomorTes}&entry.1440639833=${biodata.nama}&entry.1296372185=${biodata.kelasSekolah}&entry.853594757=${biodata.jk}&entry.1143589728=${pilihan[0] + 1}&entry.1817996895=${isian[0]}&entry.1741278348=${pilihan[1] + 1}&entry.909508085=${isian[1]}&entry.1059735049=${pilihan[2] + 1}&entry.792195048=${isian[2]}&entry.295777424=${pilihan[3] + 1}&entry.896151727=${isian[3]}&entry.886961053=${pilihan[4] + 1}&entry.346649448=${isian[4]}&entry.793693254=${pilihan[5] + 1}&entry.1044684289=${isian[5]}&entry.879971360=${pilihan[6] + 1}&entry.1667482724=${isian[6]}`
 	}
 	$: if (isian) {
 		if (isian.length == 7) {
